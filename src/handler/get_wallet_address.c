@@ -241,6 +241,7 @@ static void compute_address(dispatcher_context_t *dc) {
                                             state->address_index,
                                             &script_buf);
     if (script_len < 0) {
+        PRINTF("Couldn't produce wallet script\n");
         SEND_SW(dc, SW_BAD_STATE);  // unexpected
         return;
     }
@@ -252,6 +253,12 @@ static void compute_address(dispatcher_context_t *dc) {
                                             sizeof(state->address));
 
     if (state->address_len < 0) {
+        PRINTF("Couldn't produce script address for script: ");
+        for (int i = 0; i < script_len; i++) {
+            PRINTF("%02X", state->script[i]);
+        }
+        PRINTF("\n");
+
         SEND_SW(dc, SW_BAD_STATE);  // unexpected
         return;
     }
