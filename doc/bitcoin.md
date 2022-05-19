@@ -142,6 +142,8 @@ After user's validation is completed successfully, the application returns the `
 
 #### Client commands
 
+`GET_PREIMAGE` must know and respond for the full serialized wallet policy whose sha256 hash is `wallet_id`; moreover, it must know and respond for the sha256 hash of its descriptor template.
+
 The client must respond to the `GET_PREIMAGE`, `GET_MERKLE_LEAF_PROOF` and `GET_MERKLE_LEAF_INDEX` queries related to the Merkle tree of the list of keys information.
 
 The `GET_MORE_ELEMENTS` command must be handled.
@@ -185,7 +187,7 @@ If the `display` parameter is `1`, the resulting wallet address is also shown on
 
 #### Client commands
 
-`GET_PREIMAGE` must know and respond for the full serialized wallet policy whose sha256 hash is `wallet_id`.
+`GET_PREIMAGE` must know and respond for the full serialized wallet policy whose sha256 hash is `wallet_id`; moreover, it must know and respond for the sha256 hash of its descriptor template.
 
 The client must respond to the `GET_PREIMAGE`, `GET_MERKLE_LEAF_PROOF` and `GET_MERKLE_LEAF_INDEX` queries related to the Merkle tree of the list of keys information.
 
@@ -233,7 +235,7 @@ For a default wallet, `hmac` must be equal to 32 bytes `0`.
 
 #### Client commands
 
-`GET_PREIMAGE` must know and respond for the full serialized wallet policy whose sha256 hash is `wallet_id`.
+`GET_PREIMAGE` must know and respond for the full serialized wallet policy whose sha256 hash is `wallet_id`; moreover, it must know and respond for the sha256 hash of its descriptor template.
 
 The client must respond to the `GET_PREIMAGE`, `GET_MERKLE_LEAF_PROOF` and `GET_MERKLE_LEAF_INDEX` queries for all the Merkle trees in the input, including each of the Merkle trees for keys and values of the Merkleized map commitments of each of the inputs/outputs maps of the psbt.
 
