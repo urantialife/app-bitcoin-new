@@ -76,9 +76,12 @@ def parse_signing_events(events: List[dict]) -> dict:
     was_amount = False
     was_address = False
     was_fees = False
+    address_not_finished = False
 
     cur_output_index = -1
-
+    address_length = 3
+    cur_address_index = address_length
+    
     ret["addresses"] = []
     ret["amounts"] = []
     ret["fees"] = ""
@@ -94,16 +97,26 @@ def parse_signing_events(events: List[dict]) -> dict:
             ret["addresses"].append("")
             ret["amounts"].append("")
 
-        if was_address:
+        if address_not_finished:
+            if not ev["text"].startswith("Address"):
+                ret["addresses"][-1] += ev["text"]
+                cur_address_index += 1
+
+        elif was_address:
+            if cur_address_index == address_length:
+                cur_address_index = 0
             ret["addresses"][-1] += ev["text"]
-        if was_amount:
+            cur_address_index += 1
+
+        elif was_amount:
             ret["amounts"][-1] += ev["text"]
 
-        if was_fees:
+        elif was_fees:
             ret["fees"] += ev["text"]
 
         was_amount = ev["text"].startswith("Amount")
         was_address = ev["text"].startswith("Address")
+        address_not_finished = cur_address_index < address_length
         was_fees = ev["text"].startswith("Fees")
 
     return ret
